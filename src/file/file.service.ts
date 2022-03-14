@@ -5,7 +5,6 @@ import * as uuid from 'uuid';
 
 @Injectable()
 export class FileService {
-
   createFile(file): string {
     const fileExtension = file.originalname.split('.').pop();
     const fileName = uuid.v4() + '.' + fileExtension;

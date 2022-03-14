@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -19,8 +20,13 @@ export class ProductController {
   constructor(private productService: ProductService) {}
 
   @Get()
-  getAll() {
-    return this.productService.getAll();
+  getAll(@Query('platform') platform: string, @Query('genre') genre: string) {
+    return this.productService.getAll(platform, genre);
+  }
+
+  @Get('/search')
+  search(@Query('title') title: string) {
+    return this.productService.search(title);
   }
 
   @Get(':id')

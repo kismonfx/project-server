@@ -12,8 +12,31 @@ export class ProductService {
     private fileService: FileService,
   ) {}
 
-  async getAll(): Promise<Product[]> {
-    const products = await this.productModel.find();
+  async getAll(platform: string, genre: string): Promise<Product[]> {
+    let products;
+    if (!platform && !genre) {
+      products = await this.productModel.find().sort({ title: 1 });
+    }
+    if (platform && !genre) {
+      products = await this.productModel
+        .find({ platform: platform })
+        .sort({ title: 1 });
+    }
+    if (!platform && genre) {
+      products = await this.productModel
+        .find({ genre: genre })
+        .sort({ title: 1 });
+    }
+    if (platform && genre) {
+      products = await this.productModel
+        .find({ platform: platform, genre: genre })
+        .sort({ title: 1 });
+    }
+    return products;
+  }
+
+  async search(title: string): Promise<Product[]> {
+    const products = await this.productModel.find({title: {$regex: new RegExp(title, 'i')}});
     return products;
   }
 
@@ -32,7 +55,6 @@ export class ProductService {
   }
 
   async update(id: ObjectId, dto: ProductDto, image): Promise<Product> {
-
     const product = await this.productModel.findById(id);
     let imagePath = product.image;
 
