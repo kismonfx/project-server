@@ -8,17 +8,20 @@ import {
   Put,
   Query,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { ProductDto } from './product.dto';
 import { ObjectId } from 'mongoose';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('/products')
 export class ProductController {
   constructor(private productService: ProductService) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   getAll(@Query('platform') platform: string, @Query('genre') genre: string) {
     return this.productService.getAll(platform, genre);

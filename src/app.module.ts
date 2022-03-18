@@ -6,6 +6,7 @@ import { ProductModule } from './product/product.module';
 import { FileModule } from './file/file.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import * as path from 'path';
     }),
     ProductModule,
     FileModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
