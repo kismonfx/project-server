@@ -21,7 +21,7 @@ import { AuthGuard } from '@nestjs/passport';
 export class ProductController {
   constructor(private productService: ProductService) {}
 
-  @UseGuards(AuthGuard('jwt'))
+  //@UseGuards(AuthGuard('jwt'))
   @Get()
   getAll(@Query('platform') platform: string, @Query('genre') genre: string) {
     return this.productService.getAll(platform, genre);
