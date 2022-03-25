@@ -9,6 +9,8 @@ import { JwtStrategy } from './auth/jwt.strategy';
 import { FavouritesController } from './favourites/favourites.controller';
 import { FavouritesService } from './favourites/favourites.service';
 import { Product, ProductSchema } from '../product/product.schema';
+import { CartController } from "./cart/cart.controller";
+import { CartService } from "./cart/cart.service";
 
 @Module({
   imports: [
@@ -19,7 +21,7 @@ import { Product, ProductSchema } from '../product/product.schema';
       signOptions: { expiresIn: '24h' },
     }),
   ],
-  controllers: [AuthController, FavouritesController],
-  providers: [AuthService, JwtStrategy, FavouritesService],
+  controllers: [AuthController, FavouritesController, CartController],
+  providers: [AuthService, JwtStrategy, FavouritesService, CartService],
 })
 export class UserModule {}

@@ -1,7 +1,7 @@
-import { Document } from 'mongoose';
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose';
-import { Product } from '../product/product.schema';
+import { Document } from "mongoose";
+import { Prop, raw, Schema, SchemaFactory } from "@nestjs/mongoose";
+import * as mongoose from "mongoose";
+import { Product } from "../product/product.schema";
 
 export type UserDocument = User & Document;
 
@@ -13,11 +13,18 @@ export class User {
   @Prop()
   password: string;
 
-  @Prop({ default: false })
+  @Prop({ default: true })
   isAdmin: boolean;
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }] })
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }] })
   favourites: Product[];
+
+  @Prop(raw([{
+    product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+    quantity: { type: Number, default: 1 },
+    _id: false
+  }]))
+  cart: Record<string, any>;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
