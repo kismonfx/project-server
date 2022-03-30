@@ -1,11 +1,17 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from "@nestjs/common";
-import { CartService } from "./cart.service";
-import { AuthGuard } from "@nestjs/passport";
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
+import { CartService } from './cart.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('/cart')
 export class CartController {
-  constructor(private cartService: CartService) {
-  }
+  constructor(private cartService: CartService) {}
 
   @UseGuards(AuthGuard('jwt'))
   @Get()
@@ -23,5 +29,11 @@ export class CartController {
   @Post('/delete')
   deleteProduct(@Request() req, @Body() { productId }) {
     return this.cartService.deleteProduct(req.user.id, productId);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('/clear')
+  clearCart(@Request() req) {
+    return this.cartService.clearCart(req.user.id);
   }
 }

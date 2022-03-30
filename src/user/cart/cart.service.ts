@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { User, UserDocument } from "../user.schema";
-import { Model, ObjectId } from "mongoose";
-import { Product, ProductDocument } from "../../product/product.schema";
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { User, UserDocument } from '../user.schema';
+import { Model, ObjectId } from 'mongoose';
+import { Product, ProductDocument } from '../../product/product.schema';
 
 @Injectable()
 export class CartService {
@@ -25,11 +25,11 @@ export class CartService {
       { new: true },
     );
 
-    const product = await this.productModel.findOne({_id: productId});
+    const product = await this.productModel.findOne({ _id: productId });
     const cartItem = {
       product,
-      quantity: 1
-    }
+      quantity: 1,
+    };
 
     return cartItem;
   }
@@ -41,5 +41,13 @@ export class CartService {
       { new: true },
     );
     return { productId };
+  }
+
+  async clearCart(userId: ObjectId) {
+    await this.userModel.findOneAndUpdate(
+      { _id: userId },
+      { $set: { cart: [] } },
+      { new: true },
+    );
   }
 }

@@ -1,4 +1,5 @@
 export interface ProductDto {
+  _id?: string;
   title: string;
   genre: string;
   developer: string;

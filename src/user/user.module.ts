@@ -9,8 +9,8 @@ import { JwtStrategy } from './auth/jwt.strategy';
 import { FavouritesController } from './favourites/favourites.controller';
 import { FavouritesService } from './favourites/favourites.service';
 import { Product, ProductSchema } from '../product/product.schema';
-import { CartController } from "./cart/cart.controller";
-import { CartService } from "./cart/cart.service";
+import { CartController } from './cart/cart.controller';
+import { CartService } from './cart/cart.service';
 
 @Module({
   imports: [

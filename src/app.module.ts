@@ -7,6 +7,7 @@ import { FileModule } from './file/file.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
 import { UserModule } from './user/user.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { UserModule } from './user/user.module';
     ProductModule,
     FileModule,
     UserModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],
